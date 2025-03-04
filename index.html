@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quantum Insights - Blog Teknologi Quantum</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: #0d0d0d;
+            color: #e0e0e0;
+            min-height: 100vh;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+
+        /* Header */
+        header {
+            background: #1a1a1a;
+            padding: 20px;
+            text-align: center;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 20px rgba(0, 255, 204, 0.2);
+            animation: fadeIn 1s ease-in;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        header h1 {
+            font-size: 2.5em;
+            color: #00ffcc;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        nav {
+            margin-top: 10px;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        nav ul li a {
+            color: #b0b0b0;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            color: #00ffcc;
+        }
+
+        /* Main Layout */
+        .container {
+            display: flex;
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .main-content {
+            flex: 3;
+        }
+
+        /* Article Cards */
+        .articles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .article-card {
+            background: #1a1a1a;
+            border: 2px solid #00ffcc;
+            border-radius: 10px;
+            padding: 15px;
+            box-shadow: 0 4px 15px rgba(0, 255, 204, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+
+        .article-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 255, 204, 0.2);
+        }
+
+        .article-card h3 {
+            font-size: 1.3em;
+            color: #00ffcc;
+            margin-bottom: 10px;
+        }
+
+        .article-card p {
+            font-size: 0.9em;
+            color: #b0b0b0;
+            line-height: 1.5;
+        }
+
+        /* Article Detail */
+        .article-detail {
+            display: none;
+            background: #1a1a1a;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 255, 204, 0.1);
+            animation: slideUp 0.5s ease-out;
+        }
+
+        .article-detail.active {
+            display: block;
+        }
+
+        .article-detail h2 {
+            font-size: 2em;
+            color: #00ffcc;
+            margin-bottom: 20px;
+        }
+
+        .article-detail img {
+            width: 100%;
+            max-height: 400px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .article-detail p {
+            font-size: 1em;
+            line-height: 1.8;
+            color: #b0b0b0;
+            margin-bottom: 20px;
+        }
+
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+        }
+
+        .navigation button {
+            padding: 10px 20px;
+            background: #00ffcc;
+            color: #1a1a1a;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .navigation button:hover {
+            background: #00e6b8;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            flex: 1;
+            background: #1a1a1a;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 255, 204, 0.1);
+        }
+
+        .sidebar h3 {
+            font-size: 1.5em;
+            color: #00ffcc;
+            margin-bottom: 15px;
+        }
+
+        .sidebar ul {
+            list-style: none;
+        }
+
+        .sidebar ul li {
+            margin-bottom: 10px;
+        }
+
+        .sidebar ul li a {
+            color: #b0b0b0;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .sidebar ul li a:hover {
+            color: #00ffcc;
+        }
+
+        /* Ad Section */
+        .ad-section {
+            margin-top: 30px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .ad-section img, .ad-section video {
+            width: 100%;
+            max-width: 200px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .ad-section video {
+            object-fit: cover;
+        }
+
+        .ad-section:hover img, .ad-section:hover video {
+            transform: scale(1.05);
+        }
+
+        .ad-section p {
+            font-size: 0.9em;
+            color: #b0b0b0;
+            margin-top: 10px;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+            background: #1a1a1a;
+            border-radius: 10px;
+            color: #888;
+            font-size: 0.9em;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        /* Responsif */
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                margin-top: 30px;
+            }
+
+            .article-card h3 {
+                font-size: 1.2em;
+            }
+
+            .article-detail h2 {
+                font-size: 1.5em;
+            }
+
+            nav ul {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            nav ul li {
+                margin: 10px 0;
+            }
+
+            .ad-section img, .ad-section video {
+                max-width: 150px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <h1>QUANTUM INSIGHTS</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Articles Grid -->
+        <div class="main-content">
+            <div class="articles-grid" id="articlesGrid">
+                <!-- Artikel akan ditambahkan melalui JavaScript -->
+            </div>
+
+            <!-- Article Detail -->
+            <div class="article-detail" id="articleDetail">
+                <h2 id="articleTitle"></h2>
+                <img id="articleImage" src="" alt="Article Image">
+                <p id="articleContent"></p>
+                <div class="navigation">
+                    <button onclick="showPreviousArticle()">Previous</button>
+                    <button onclick="backToHome()">Kembali ke Halaman Utama</button>
+                    <button onclick="showNextArticle()">Next</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <h3>Artikel Terbaru</h3>
+            <ul id="recentArticles">
+                <!-- Daftar artikel terbaru akan ditambahkan melalui JavaScript -->
+            </ul>
+
+            <div class="ad-section" onclick="window.location.href='https://example.com/ad-page';">
+                <img src="images/5.jpeg" alt="Iklan" onerror="this.src='https://via.placeholder.com/200x300?text=Iklan+Quantum+Tech';">
+                <!-- Video alternatif (komentar jika tidak digunakan) -->
+                <!-- <video autoplay loop muted playsinline>
+                    <source src="videos/ad-video.mp4" type="video/mp4">
+                </video> -->
+                <p>Temukan Solusi Quantum Terbaik di Sini!</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox" onclick="closeLightbox()">
+        <!-- <img id="lightboxImage" src="" alt="Lightbox Image"> -->
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        © 2025 Quantum Insights. Dibuat oleh [Nama Anda]. Email: quantuminsights@example.com
+    </footer>
+
+    <script>
+        // Data Artikel (4 box)
+        const articles = [
+            {
+                id: 1,
+                title: "Mengenal Komputer Super Quantum: Teknologi Masa Depan",
+                thumbnail: "images/1.jpeg",
+                summary: "Komputer super quantum adalah terobosan teknologi yang mengubah cara kita memproses data. Pelajari dasar-dasarnya di sini.",
+                content: "Komputer super quantum adalah jenis komputer yang memanfaatkan prinsip-prinsip mekanika kuantum, seperti superposisi dan belitan, untuk memproses informasi. Teknologi ini menawarkan potensi besar untuk simulasi molekul dan optimasi, meskipun masih menghadapi tantangan stabilitas qubit."
+            },
+            {
+                id: 2,
+                title: "Bagaimana Komputer Quantum Mengubah Dunia Kriptografi",
+                thumbnail: "images/2.jpeg",
+                summary: "Komputer quantum memiliki kemampuan untuk memecahkan enkripsi tradisional. Apa artinya bagi keamanan digital?",
+                content: "Komputer quantum dapat mengancam enkripsi tradisional seperti RSA dengan algoritma seperti Shor's Algorithm. Hal ini mendorong pengembangan kriptografi quantum, termasuk Quantum Key Distribution (QKD), untuk keamanan yang lebih kuat."
+            },
+            {
+                id: 3,
+                title: "Perbandingan Komputer Klasik vs Komputer Quantum",
+                thumbnail: "images/3.jpeg",
+                summary: "Apa perbedaan utama antara komputer klasik dan quantum? Simak perbandingan mendalam di sini.",
+                content: "Komputer klasik menggunakan bit (0 atau 1), sedangkan komputer quantum menggunakan qubit dengan superposisi. Komputer quantum unggul dalam masalah kompleks, tetapi komputer klasik lebih praktis untuk tugas sehari-hari."
+            },
+            {
+                id: 4,
+                title: "Mengenal Komputer Super Quantum: Teknologi Masa Depan",
+                thumbnail: "images/4.jpeg",
+                summary: "Pelajari bagaimana komputer super quantum dapat merevolusi teknologi di masa depan.",
+                content: "Komputer super quantum menjanjikan revolusi dalam berbagai bidang seperti AI, kimia kuantum, dan logistik. Namun, tantangannya adalah skalabilitas dan biaya produksi yang tinggi."
+            }
+        ];
+
+        let currentArticleIndex = 0;
+
+        // Tampilkan Daftar Artikel di Halaman Utama
+        function displayArticles() {
+            const articlesGrid = document.getElementById('articlesGrid');
+            articlesGrid.innerHTML = '';
+
+            articles.forEach((article, index) => {
+                const articleCard = document.createElement('div');
+                articleCard.classList.add('article-card');
+                articleCard.innerHTML = `
+                    <div class="article-card-content">
+                        <h3>${article.title}</h3>
+                        <p>${article.summary}</p>
+                    </div>
+                `;
+                articleCard.addEventListener('click', () => showArticle(index));
+                articlesGrid.appendChild(articleCard);
+            });
+        }
+
+        // Tampilkan Daftar Artikel Terbaru di Sidebar
+        function displayRecentArticles() {
+            const recentArticles = document.getElementById('recentArticles');
+            recentArticles.innerHTML = '';
+
+            articles.slice().reverse().forEach((article, index) => {
+                const li = document.createElement('li');
+                li.innerHTML = `<a href="#" onclick="showArticle(${articles.length - 1 - index}); return false;">${article.title}</a>`;
+                recentArticles.appendChild(li);
+            });
+        }
+
+        // Tampilkan Artikel Lengkap
+        function showArticle(index) {
+            currentArticleIndex = index;
+            const article = articles[index];
+
+            const articlesGrid = document.getElementById('articlesGrid');
+            const articleDetail = document.getElementById('articleDetail');
+
+            articlesGrid.style.display = 'none';
+            articleDetail.classList.add('active');
+
+            document.getElementById('articleTitle').textContent = article.title;
+            document.getElementById('articleImage').src = article.thumbnail || 'https://via.placeholder.com/300x200?text=No+Image';
+            document.getElementById('articleContent').textContent = article.content;
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Kembali ke Halaman Utama
+        function backToHome() {
+            const articlesGrid = document.getElementById('articlesGrid');
+            const articleDetail = document.getElementById('articleDetail');
+
+            articlesGrid.style.display = 'grid';
+            articleDetail.classList.remove('active');
+        }
+
+        // Tampilkan Artikel Sebelumnya
+        function showPreviousArticle() {
+            if (currentArticleIndex > 0) {
+                showArticle(currentArticleIndex - 1);
+            }
+        }
+
+        // Tampilkan Artikel Berikutnya
+        function showNextArticle() {
+            if (currentArticleIndex < articles.length - 1) {
+                showArticle(currentArticleIndex + 1);
+            }
+        }
+
+        // Lightbox Functionality
+        function showLightbox(imageSrc) {
+            const lightbox = document.getElementById('lightbox');
+            const lightboxImage = document.getElementById('lightboxImage');
+            lightboxImage.src = imageSrc;
+            lightbox.classList.add('active');
+        }
+
+        function closeLightbox() {
+            const lightbox = document.getElementById('lightbox');
+            lightbox.classList.remove('active');
+        }
+
+        // Inisialisasi
+        displayArticles();
+        displayRecentArticles();
+    </script>
+</body>
+</html>
